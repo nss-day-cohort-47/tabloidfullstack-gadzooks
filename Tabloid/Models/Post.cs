@@ -24,5 +24,6 @@ namespace Tabloid.Models
         public Boolean IsApproved { get; set; }
         public int CategoryId { get; set; }
         public int UserProfileId { get; set; }
+        public UserProfile UserProfile { get; set; }
     }
 }
