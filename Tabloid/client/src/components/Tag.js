@@ -7,6 +7,8 @@ const Tag = ({ tag }) => {
         <Card >
             <CardBody>
                 <p>{tag.name}</p>
+                <a>Edit</a>
+                <a>Delete</a>
             </CardBody>
         </Card>
     );
