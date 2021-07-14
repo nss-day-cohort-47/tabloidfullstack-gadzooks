@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Tabloid.Models;
 using Tabloid.Repositories;
 
+
 namespace Tabloid.Controllers
 {
     [Route("api/[controller]")]
@@ -15,17 +16,25 @@ namespace Tabloid.Controllers
     public class PostController : ControllerBase
     {
         private readonly IPostRepository _postRepository;
+
         public PostController(IPostRepository postRepository)
         {
             _postRepository = postRepository;
         }
 
-        private UserProfile GetCurrentUserProfile()
+    // GET: api/<PostController>
+    [HttpGet]
+    public IActionResult Get()
         {
-            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            return _postRepository.GetByFirebaseUserId(firebaseUserId);
+            return Ok(_postRepository.GetAll());
         }
 
+        private UserProfile GetCurrentUserProfile()
+    {
+            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return _postRepository.GetByFirebaseUserId(firebaseUserId);
+    }
+    
         [HttpGet("MyPosts")]
         IActionResult GetCurrentUserPosts()
         {

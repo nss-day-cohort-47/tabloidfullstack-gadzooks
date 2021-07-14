@@ -24,15 +24,14 @@ namespace Tabloid.Repositories
                     cmd.CommandText = @"
                        SELECT p.Id, p.Title, p.Content, 
                               p.ImageLocation AS HeaderImage,
-                              p.CreateDateTime, p.PublishDateTime, p.IsApproved,
+                              p.CreateDateTime AS PostCreateDateTime,
+                              p.PublishDateTime, p.IsApproved,
                               p.CategoryId, p.UserProfileId,
-                              c.[Name] AS CategoryName,
                               u.FirstName, u.LastName, u.DisplayName, 
-                              u.Email, u.CreateDateTime, u.ImageLocation AS AvatarImage,
+                              u.Email, u.CreateDateTime AS UserCreateDateTime, u.ImageLocation AS AvatarImage,
                               u.UserTypeId, 
                               ut.[Name] AS UserTypeName
                          FROM Post p
-                              LEFT JOIN Category c ON p.CategoryId = c.id
                               LEFT JOIN UserProfile u ON p.UserProfileId = u.id
                               LEFT JOIN UserType ut ON u.UserTypeId = ut.id
                         WHERE IsApproved = 1 AND PublishDateTime < SYSDATETIME()
@@ -47,28 +46,28 @@ namespace Tabloid.Repositories
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
                             Title = DbUtils.GetString(reader, "Title"),
-                            Content = DbUtils.GetString(reader, "Description"),
-                            ImageLocation = DbUtils.GetString(reader, "Url"),
-                            CreateDateTime = DbUtils.GetDateTime(reader, "DateCreated"),
-                            PublishDateTime = DbUtils.GetDateTime(reader, "UserProfileId"),
+                            Content = DbUtils.GetString(reader, "Content"),
+                            ImageLocation = DbUtils.GetString(reader, "HeaderImage"),
+                            CreateDateTime = DbUtils.GetDateTime(reader, "PostCreateDateTime"),
+                            PublishDateTime = DbUtils.GetDateTime(reader, "PublishDateTime"),
                             IsApproved = DbUtils.IsNotDbNull(reader, "IsApproved"),
                             CategoryId = DbUtils.GetInt(reader, "CategoryId"),
                             UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
                             UserProfile = new UserProfile()
                             {
                                 Id = DbUtils.GetInt(reader, "UserProfileId"),
-                                FirebaseUserId = DbUtils.GetString(reader, "FirebaseUserId"),
+                                //FirebaseUserId = DbUtils.GetString(reader, "FirebaseUserId"),
                                 DisplayName = DbUtils.GetString(reader, "DisplayName"),
                                 FirstName = DbUtils.GetString(reader, "FirstName"),
                                 LastName = DbUtils.GetString(reader, "LastName"),
                                 Email = DbUtils.GetString(reader, "Email"),
-                                CreateDateTime = DbUtils.GetDateTime(reader, "UserProfileDateCreated"),
-                                ImageLocation = DbUtils.GetString(reader, "UserProfileImageUrl"),
+                                CreateDateTime = DbUtils.GetDateTime(reader, "UserCreateDateTime"),
+                                ImageLocation = DbUtils.GetString(reader, "AvatarImage"),
                                 UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
                                 UserType = new UserType()
                                 {
                                     Id = DbUtils.GetInt(reader, "UserTypeId"),
-                                    Name = DbUtils.GetString(reader, "Name")
+                                    Name = DbUtils.GetString(reader, "UserTypeName")
                                 }
                             },
                         });
@@ -196,6 +195,53 @@ namespace Tabloid.Repositories
             }
         }
 
+        public List<Post> GetAllPosts()
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                       SELECT
+                       p.Id,
+                       p.Title,
+                       p.Content,
+                       p.ImageLocation,
+                       p.CreateDateTime,
+                       p.PublishDateTime,
+                       p.IsApproved,
+                       p.CategoryId,
+                       p.UserProfileId
+                       FROM Post p
+                       ORDER BY p.CreateDateTime DESC";
+
+                    var reader = cmd.ExecuteReader();
+
+                    var posts = new List<Post>();
+                    while (reader.Read())
+                    {
+                        posts.Add(new Post()
+                        {
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            Title = DbUtils.GetString(reader, "Title"),
+                            Content = DbUtils.GetString(reader, "Content"),
+                            ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
+                            CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
+                            PublishDateTime = DbUtils.GetDateTime(reader, "PublishDateTime"),
+                            IsApproved = DbUtils.IsNotDbNull(reader, "IsApproved"),
+                            CategoryId = DbUtils.GetInt(reader, "CategoryId"),
+                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                            
+                        });
+                    }
+
+                    reader.Close();
+
+                    return posts;
+                }
+            }
+        }
         //public Post GetPostById(int id)
         //{
         //    using (var conn = Connection)
