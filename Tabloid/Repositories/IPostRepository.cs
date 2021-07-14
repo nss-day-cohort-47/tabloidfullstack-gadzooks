@@ -7,5 +7,7 @@ namespace Tabloid.Repositories
     {
         void DeletePost(int id);
         List<Post> GetAll();
+        List<Post> GetCurrentUserPosts(int id);
+        UserProfile GetByFirebaseUserId(string firebaseUserId);
     }
 }
