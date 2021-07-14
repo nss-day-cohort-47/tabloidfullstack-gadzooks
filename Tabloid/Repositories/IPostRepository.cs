@@ -1,4 +1,6 @@
-﻿namespace Tabloid.Repositories
+﻿using Tabloid.Models;
+
+namespace Tabloid.Repositories
 {
     public interface IPostRepository
     {
