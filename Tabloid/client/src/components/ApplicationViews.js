@@ -4,8 +4,10 @@ import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
 import TagList from "./Tag/TagList";
-import TagForm from "./Tag/TagForm";
 import TagEdit from "./Tag/TagEdit";
+import CategoryList from "./CategoryList";
+import TagForm from "./TagForm";
+import PostList from "./mc-PostList";
 
 export default function ApplicationViews({ isLoggedIn }) {
 
@@ -20,12 +22,20 @@ export default function ApplicationViews({ isLoggedIn }) {
           <TagList />
         </Route>
 
+        <Route path="/category" exact>
+          <CategoryList />
+        </Route>
+
         <Route path="/tag/create" exact>
           <TagForm />
         </Route>
 
         <Route path="/tag/edit/:id" exact>
           <TagEdit />
+        </Route>
+
+        <Route path="/post" exact>
+          <PostList />
         </Route>
 
         <Route path="/login">
