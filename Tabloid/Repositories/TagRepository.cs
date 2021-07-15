@@ -22,6 +22,7 @@ namespace Tabloid.Repositories
                     cmd.CommandText = @"
                         SELECT t.Id, t.Name
                         FROM Tag t
+                        ORDER BY t.Name
                     ";
 
                     var reader = cmd.ExecuteReader();
@@ -39,6 +40,25 @@ namespace Tabloid.Repositories
                     reader.Close();
 
                     return tags;
+                }
+            }
+        }
+
+        public void Add(Tag tag)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        INSERT INTO Tag (Name)
+                        OUTPUT INSERTED.ID
+                        VALUES (@name)";
+
+                    DbUtils.AddParameter(cmd, "@name", tag.Name);
+
+                    tag.Id = (int)cmd.ExecuteScalar();
                 }
             }
         }
