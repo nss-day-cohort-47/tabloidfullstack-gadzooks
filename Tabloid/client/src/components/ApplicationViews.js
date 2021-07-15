@@ -4,6 +4,7 @@ import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
 import TagList from "./TagList";
+import CategoryList from "./CategoryList";
 import TagForm from "./TagForm";
 import PostList from "./mc-PostList";
 
@@ -20,6 +21,10 @@ export default function ApplicationViews({ isLoggedIn }) {
           <TagList />
         </Route>
 
+        <Route path="/category" exact>
+          <CategoryList />
+        </Route>
+        
         <Route path="/tag/create" exact>
           <TagForm />
         </Route>
