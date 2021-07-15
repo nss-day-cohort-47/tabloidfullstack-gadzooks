@@ -4,6 +4,7 @@ import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
 import TagList from "./TagList";
+import TagForm from "./TagForm";
 
 export default function ApplicationViews({ isLoggedIn }) {
 
@@ -16,6 +17,10 @@ export default function ApplicationViews({ isLoggedIn }) {
 
         <Route path="/tag" exact>
           <TagList />
+        </Route>
+
+        <Route path="/tag/create" exact>
+          <TagForm />
         </Route>
 
         <Route path="/login">
