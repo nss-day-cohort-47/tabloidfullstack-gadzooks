@@ -3,8 +3,9 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
-import TagList from "./TagList";
-import TagForm from "./TagForm";
+import TagList from "./Tag/TagList";
+import TagForm from "./Tag/TagForm";
+import TagEdit from "./Tag/TagEdit";
 
 export default function ApplicationViews({ isLoggedIn }) {
 
@@ -21,6 +22,10 @@ export default function ApplicationViews({ isLoggedIn }) {
 
         <Route path="/tag/create" exact>
           <TagForm />
+        </Route>
+
+        <Route path="/tag/edit/:id" exact>
+          <TagEdit />
         </Route>
 
         <Route path="/login">

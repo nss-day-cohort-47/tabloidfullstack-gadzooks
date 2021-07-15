@@ -15,6 +15,16 @@ export const addTag = (tag) => {
     });
 };
 
+export const updateTag = (editedTag) => {
+    return fetch(`${baseUrl}/${editedTag.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(editedTag)
+    }).then(data => data.json());
+}
+
 export const deleteTag = (id) => {
     return fetch(`${baseUrl}/${id}`, {
         method: "DELETE",

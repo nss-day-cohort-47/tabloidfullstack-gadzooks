@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import Tag from './Tag';
-import { addTag, getAllTags } from '../modules/tagManager';
+import { getAllTags, updateTag } from '../../modules/tagManager';
 
-const TagForm = () => {
-    const [tag, setTag] = useState({ name: '' });
+const TagEdit = () => {
+    const [tag, setTag] = useState({});
     const [tags, setTags] = useState([]);
     const history = useHistory();
+    const { id } = useParams();
+
+
 
     const getTags = () => {
         getAllTags().then(tags => setTags(tags));
@@ -20,6 +23,9 @@ const TagForm = () => {
     const handleInputChange = (evt) => {
         const value = evt.target.value;
         const key = evt.target.id;
+        console.log("value", value);
+        console.log("param", id);
+
 
         const tagCopy = { ...tag };
 
@@ -29,7 +35,15 @@ const TagForm = () => {
 
     const handleSave = (evt) => {
         evt.preventDefault();
-        addTag(tag).then(() => {
+
+        const editedTag = {
+            id: tag.id,
+            name: tag.name
+        }
+
+        console.log(editedTag);
+
+        updateTag(editedTag).then(() => {
             // Navigate the user back to the home route
             history.push("/tag");
         });
@@ -40,6 +54,7 @@ const TagForm = () => {
             <Form>
                 <FormGroup>
                     <Label for="name">Tag</Label>
+                    <Input type="hidden" name="id" id="id" value={tag.id}></Input>
                     <Input type="text" name="name" id="name" placeholder="Tag Name..."
                         value={tag.name}
                         onChange={handleInputChange} />
@@ -48,7 +63,7 @@ const TagForm = () => {
             </Form>
             <div className="container">
                 <div className="row justify-content-center">
-                    {tags.map((tag) => (
+                    {tags.filter(tag => tag.id !== parseInt(id)).map((tag) => (
                         <Tag tag={tag} key={tag.id} />
                     ))}
                 </div>
@@ -57,4 +72,4 @@ const TagForm = () => {
     );
 };
 
-export default TagForm;
+export default TagEdit;
