@@ -19,4 +19,3 @@ namespace Tabloid.Repositories
         void DeleteComment(int id);
     }
 }
-© 2021 GitHub, Inc.
