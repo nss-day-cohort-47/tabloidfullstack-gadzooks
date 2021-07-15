@@ -12,6 +12,40 @@ namespace Tabloid.Repositories
     {
         public TagRepository(IConfiguration configuration) : base(configuration) { }
 
+        public Tag GetById(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT  [Name]
+                        FROM Tag
+                        WHERE Id = @id
+                    ";
+
+                    DbUtils.AddParameter(cmd, "@Id", id);
+
+                    var reader = cmd.ExecuteReader();
+
+                    Tag tag = null;
+                    if (reader.Read())
+                    {
+                        tag = new Tag()
+                        {
+                            Id = id,
+                            Name = DbUtils.GetString(reader, "Name"),
+                        };
+                    }
+
+                    reader.Close();
+
+                    return tag;
+                }
+            }
+        }
+
         public List<Tag> GetAll()
         {
             using (var conn = Connection)

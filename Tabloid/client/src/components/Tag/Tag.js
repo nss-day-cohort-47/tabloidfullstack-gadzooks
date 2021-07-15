@@ -2,7 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { Card, CardBody } from "reactstrap";
 
-const Tag = ({ tag, deleteAndSetTags }) => {
+const Tag = ({ tag, deleteAndSetTags, checkIfEdit }) => {
 
     const history = useHistory();
 
@@ -10,10 +10,12 @@ const Tag = ({ tag, deleteAndSetTags }) => {
         <Card >
             <CardBody>
                 <p>{tag.name}</p>
-                <button onClick={() => history.push(`tag/edit/${tag.id}`)}>Edit</button>
+                <button onClick={() => history.push(`/tag/edit/${tag.id}`)}>Edit</button>
                 {/* //! THIS BREAK WON'T STAY */}
                 <br></br>
-                <button onClick={() => deleteAndSetTags(tag.id)}>Delete</button>
+                {(checkIfEdit)
+                    ? null
+                    : <button onClick={() => deleteAndSetTags(tag.id)}>Delete</button>}
             </CardBody>
         </Card>
     );

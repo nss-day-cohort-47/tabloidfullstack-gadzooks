@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import Tag from './Tag';
-import { getAllTags, updateTag } from '../../modules/tagManager';
+import { getAllTags, getTagById, updateTag } from '../../modules/tagManager';
 
 const TagEdit = () => {
     const [tag, setTag] = useState({});
@@ -10,14 +10,19 @@ const TagEdit = () => {
     const history = useHistory();
     const { id } = useParams();
 
-
+    const checkIfEdit = true;
 
     const getTags = () => {
         getAllTags().then(tags => setTags(tags));
     }
 
+    const getTagToEdit = (tagId) => {
+        getTagById(tagId).then(tag => setTag(tag));
+    }
+
     useEffect(() => {
         getTags();
+        getTagToEdit(id);
     }, []);
 
     const handleInputChange = (evt) => {
@@ -43,10 +48,11 @@ const TagEdit = () => {
 
         console.log(editedTag);
 
-        updateTag(editedTag).then(() => {
-            // Navigate the user back to the home route
-            history.push("/tag");
-        });
+        updateTag(editedTag)
+            .then(() => {
+                // Navigate the user back to the home route
+                history.push("/tag");
+            });
     };
 
     return (
@@ -64,7 +70,7 @@ const TagEdit = () => {
             <div className="container">
                 <div className="row justify-content-center">
                     {tags.filter(tag => tag.id !== parseInt(id)).map((tag) => (
-                        <Tag tag={tag} key={tag.id} />
+                        <Tag tag={tag} key={tag.id} checkIfEdit={checkIfEdit} />
                     ))}
                 </div>
             </div>
