@@ -1,12 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { Card, CardBody } from "reactstrap";
 
-const Tag = ({ tag }) => {
+const Tag = ({ tag, deleteAndSetTags }) => {
+
+
     return (
         <Card >
             <CardBody>
                 <p>{tag.name}</p>
+                <a>Edit</a>
+                {/* //! THIS BREAK WON'T STAY */}
+                <br></br>
+                <button onClick={() => deleteAndSetTags(tag.id)}>Delete</button>
             </CardBody>
         </Card>
     );
