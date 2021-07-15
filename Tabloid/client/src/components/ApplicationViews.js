@@ -8,6 +8,7 @@ import TagEdit from "./Tag/TagEdit";
 import CategoryList from "./CategoryList";
 import TagForm from "./Tag/TagForm";
 import PostList from "./mc-PostList";
+import { CurrentUserPostList } from "./CurrentUserPostList";
 
 export default function ApplicationViews({ isLoggedIn }) {
 
@@ -18,12 +19,20 @@ export default function ApplicationViews({ isLoggedIn }) {
           {isLoggedIn ? <Hello /> : <Redirect to="/login" />}
         </Route>
 
-        <Route path="/tag" exact>
-          <TagList />
+        <Route path="/post" exact>
+          <PostList />
+        </Route>
+
+        <Route path="/post/myposts" exact>
+          <CurrentUserPostList />
         </Route>
 
         <Route path="/category" exact>
           <CategoryList />
+        </Route>
+
+        <Route path="/tag" exact>
+          <TagList />
         </Route>
 
         <Route path="/tag/create" exact>
@@ -34,10 +43,6 @@ export default function ApplicationViews({ isLoggedIn }) {
           <TagEdit />
         </Route>
 
-        <Route path="/post" exact>
-          <PostList />
-        </Route>
-
         <Route path="/login">
           <Login />
         </Route>
@@ -45,6 +50,8 @@ export default function ApplicationViews({ isLoggedIn }) {
         <Route path="/register">
           <Register />
         </Route>
+
+
       </Switch>
     </main>
   );
