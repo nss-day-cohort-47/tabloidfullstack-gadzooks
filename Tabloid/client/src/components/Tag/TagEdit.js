@@ -62,7 +62,7 @@ const TagEdit = () => {
                     <Label for="name">Tag</Label>
                     <Input type="hidden" name="id" id="id" value={tag.id}></Input>
                     <Input type="text" name="name" id="name" placeholder="Tag Name..."
-                        value={tag.name}
+                        // value={tag.name}
                         onChange={handleInputChange} />
                 </FormGroup>
                 <Button className="btn btn-primary" onClick={handleSave}>Submit</Button>
