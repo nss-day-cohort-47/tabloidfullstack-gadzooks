@@ -21,7 +21,7 @@ namespace Tabloid.Repositories
                               p.ImageLocation AS HeaderImage,
                               p.CreateDateTime AS PostCreateDateTime,
                               p.PublishDateTime, p.IsApproved,
-                              p.CategoryId, p.UserProfileId,
+                              p.CategoryId, c.Name, p.UserProfileId,
                               u.FirstName, u.LastName, u.DisplayName, 
                               u.Email, u.CreateDateTime AS UserCreateDateTime, u.ImageLocation AS AvatarImage,
                               u.UserTypeId, 
@@ -29,6 +29,7 @@ namespace Tabloid.Repositories
                          FROM Post p
                               LEFT JOIN UserProfile u ON p.UserProfileId = u.id
                               LEFT JOIN UserType ut ON u.UserTypeId = ut.id
+                              LEFT JOIN Category c ON p.CategoryId = c.id
                         WHERE IsApproved = 1 AND PublishDateTime < SYSDATETIME()
                          ORDER BY p.CreateDateTime DESC";
 
@@ -47,6 +48,11 @@ namespace Tabloid.Repositories
                             PublishDateTime = DbUtils.GetDateTime(reader, "PublishDateTime"),
                             IsApproved = DbUtils.IsNotDbNull(reader, "IsApproved"),
                             CategoryId = DbUtils.GetInt(reader, "CategoryId"),
+                            Category = new Category()
+                            { 
+                                Id= DbUtils.GetInt(reader,"CategoryId"),
+                                Name= DbUtils.GetString(reader,"Name")
+                            },
                             UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
                             UserProfile = new UserProfile()
                             {
