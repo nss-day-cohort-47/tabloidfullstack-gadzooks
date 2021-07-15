@@ -127,7 +127,7 @@ namespace Tabloid.Repositories
             }
         }
 
-        public List<Post> GetCurrentUserPosts(int id)
+        public List<Post> GetCurrentUserPosts(string firebaseId)
         {
             using (var conn = Connection)
             {
@@ -141,17 +141,17 @@ namespace Tabloid.Repositories
                               p.CategoryId, p.UserProfileId,
                               c.[Name] AS CategoryName,
                               u.FirstName, u.LastName, u.DisplayName, 
-                              u.Email, u.CreateDateTime, u.ImageLocation AS AvatarImage,
-                              u.UserTypeId, 
+                              u.Email, u.CreateDateTime AS UserProfileDateCreated, u.ImageLocation AS AvatarImage,
+                              u.UserTypeId, u.FirebaseUserId,
                               ut.[Name] AS UserTypeName
                          FROM Post p
                               LEFT JOIN Category c ON p.CategoryId = c.id
                               LEFT JOIN UserProfile u ON p.UserProfileId = u.id
                               LEFT JOIN UserType ut ON u.UserTypeId = ut.id
-                        WHERE p.UserProfileId = @id AND IsApproved = 1 AND PublishDateTime < SYSDATETIME()
+                        WHERE u.FirebaseUserId = @firebaseUserId
                          ORDER BY p.CreateDateTime DESC";
 
-                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.Parameters.AddWithValue("@firebaseUserId", firebaseId);
                     var reader = cmd.ExecuteReader();
 
                     var posts = new List<Post>();
@@ -161,10 +161,10 @@ namespace Tabloid.Repositories
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
                             Title = DbUtils.GetString(reader, "Title"),
-                            Content = DbUtils.GetString(reader, "Description"),
-                            ImageLocation = DbUtils.GetString(reader, "Url"),
-                            CreateDateTime = DbUtils.GetDateTime(reader, "DateCreated"),
-                            PublishDateTime = DbUtils.GetDateTime(reader, "UserProfileId"),
+                            Content = DbUtils.GetString(reader, "Content"),
+                            ImageLocation = DbUtils.GetString(reader, "HeaderImage"),
+                            CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
+                            PublishDateTime = DbUtils.GetDateTime(reader, "PublishDateTime"),
                             IsApproved = DbUtils.IsNotDbNull(reader, "IsApproved"),
                             CategoryId = DbUtils.GetInt(reader, "CategoryId"),
                             UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
@@ -177,12 +177,12 @@ namespace Tabloid.Repositories
                                 LastName = DbUtils.GetString(reader, "LastName"),
                                 Email = DbUtils.GetString(reader, "Email"),
                                 CreateDateTime = DbUtils.GetDateTime(reader, "UserProfileDateCreated"),
-                                ImageLocation = DbUtils.GetString(reader, "UserProfileImageUrl"),
+                                ImageLocation = DbUtils.GetString(reader, "AvatarImage"),
                                 UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
                                 UserType = new UserType()
                                 {
                                     Id = DbUtils.GetInt(reader, "UserTypeId"),
-                                    Name = DbUtils.GetString(reader, "Name")
+                                    Name = DbUtils.GetString(reader, "UserTypeName")
                                 }
                             },
                         });
@@ -232,7 +232,7 @@ namespace Tabloid.Repositories
                             IsApproved = DbUtils.IsNotDbNull(reader, "IsApproved"),
                             CategoryId = DbUtils.GetInt(reader, "CategoryId"),
                             UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
-                            
+
                         });
                     }
 
