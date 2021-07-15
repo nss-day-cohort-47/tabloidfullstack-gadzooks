@@ -9,7 +9,7 @@ export const PostCard = ({ post }) => {
                 <h3>{post.title}</h3>
                 <div>{post.content}</div>
                 <div>{post.userProfile.fullName}</div>
-                <div>{post.categoryId}</div>
+                <div>{post.category.name}</div>
             </CardBody>
         </Card>
     )
