@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { PostCard } from './PostCard';
-import { getCurrentUserPosts } from '../modules/postManager';
+import { getCurrentUserPosts } from '../modules/PostManager';
 
 export const CurrentUserPostList = () => {
     const [posts, setPosts] = useState([]);
