@@ -6,7 +6,7 @@ import Hello from "./Hello";
 import TagList from "./Tag/TagList";
 import TagEdit from "./Tag/TagEdit";
 import CategoryList from "./CategoryList";
-import TagForm from "./TagForm";
+import TagForm from "./Tag/TagForm";
 import PostList from "./mc-PostList";
 
 export default function ApplicationViews({ isLoggedIn }) {
