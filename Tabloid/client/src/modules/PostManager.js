@@ -5,6 +5,12 @@ export const getAllPosts = () => {
         .then((res) => res.json())
 };
 
+export const getAllPostsWithUserInfo = () => {
+    return fetch(`${baseUrl}/GetWithUserInfo`)
+        .then((res) => res.json())
+};
+
+
 export const addPost = (post) => {
     return fetch(baseUrl, {
         method: "POST",
