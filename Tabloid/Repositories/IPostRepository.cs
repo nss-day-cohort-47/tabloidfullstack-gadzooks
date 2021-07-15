@@ -5,8 +5,11 @@ namespace Tabloid.Repositories
 {
     public interface IPostRepository
     {
-        void DeletePost(int id);
         List<Post> GetAll();
         List<Post> GetAllPosts();
+        void DeletePost(int id);
+        void Add(Post post);
+        void UpdatePost(Post post);
+
     }
 }
