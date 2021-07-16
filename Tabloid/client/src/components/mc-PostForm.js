@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { Button, From, FromGroup, Label, Input, FormText, FormGroup } from "reactstrap";
 import Post from "./mc-Post";
-import { addPost, getAllPosts } from "../modules/PostManager";
+import { addPost, getAllPosts, getAllPostsWithUserInfo } from "../modules/PostManager";
 
 const PostFrom = () => {
     const [post, setPost] = useState([]);
@@ -13,8 +13,12 @@ const PostFrom = () => {
         getAllPosts().then(posts => setPosts(posts));
     }
 
+    const getPostsWithUserInfo = () => {
+        getAllPostsWithUserInfo().then(posts => setPosts(posts));
+    }
+
     useEffect(() => {
-        getPosts();
+        getPostsWithUserInfo();
     }, []);
 
     const handleInputChange = (evt) => {

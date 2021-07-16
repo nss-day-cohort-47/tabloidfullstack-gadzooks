@@ -6,10 +6,10 @@ export const PostCard = ({ post }) => {
     return (
         <Card>
             <CardBody>
-                <div>{post.title}</div>
+                <h3>{post.title}</h3>
                 <div>{post.content}</div>
-                <div>author</div>
-                <div>category</div>
+                <div>{post.userProfile.fullName}</div>
+                <div>{post.category.name}</div>
             </CardBody>
         </Card>
     )
