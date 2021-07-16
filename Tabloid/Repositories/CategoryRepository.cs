@@ -74,7 +74,7 @@ namespace Tabloid.Repositories
                 }
             }
         }
-        /*
+        
                 public void AddCategory(Category category)
                 {
                     using (SqlConnection conn = Connection)
@@ -97,7 +97,7 @@ namespace Tabloid.Repositories
                         }
                     }
                 }
-
+        /*
                 public void UpdateCategory(Category category)
                 {
                     using (SqlConnection conn = Connection)

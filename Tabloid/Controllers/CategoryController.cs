@@ -26,5 +26,18 @@ namespace Tabloid.Controllers
         {
             return Ok(_categoryRepository.GetAll());
         }
+
+        [HttpPost]
+        public IActionResult Post(Category category)
+        {
+            _categoryRepository.AddCategory(category);
+            return CreatedAtAction("Get", new { id = category.Id }, category);
+        }
+
+        // PUT api/<TagController>/5
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] string value)
+        {
+        }
     }
 }
