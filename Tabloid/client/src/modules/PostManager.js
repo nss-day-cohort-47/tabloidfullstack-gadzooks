@@ -26,6 +26,12 @@ export const addPost = (post) => {
     });
 }
 
+export const deletePost = (id) => {
+    return fetch(`${baseUrl}/${id}`, {
+        method: "DELETE",
+    });
+};
+
 export const getCurrentUserPosts = () => {
     return getToken().then((token) =>
         fetch(`${baseUrl}/myposts`, {

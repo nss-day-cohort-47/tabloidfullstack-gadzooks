@@ -308,6 +308,7 @@ namespace Tabloid.Repositories
                 }
             }
         }
+        
         public void Add(Post post)
         {
             using (var conn = Connection)
@@ -345,7 +346,10 @@ namespace Tabloid.Repositories
 
                 using (var cmd = conn.CreateCommand())
                 {
+
                     cmd.CommandText = @"
+                            DELETE FROM Comment
+                            WHERE PostId = @id
                             DELETE FROM Post
                             WHERE Id = @id
                         ";

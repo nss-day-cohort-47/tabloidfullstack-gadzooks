@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { Button, Form, FromGroup, Label, Input, FormText, FormGroup } from "reactstrap";
-import Post from "./mc-Post";
 import { addPost, getAllPosts, getAllPostsWithUserInfo } from "../modules/PostManager";
 
 const PostForm = () => {
@@ -52,6 +51,9 @@ const PostForm = () => {
                         <Input type="text" placeholder="post content" value={post.content} onChange={handleInputChange}></Input>
                     </FormGroup>
                     <FormGroup>
+                        <Input type="text" placeholder="image Url (optional)" value={post.imageLocation} onChange={handleInputChange}></Input>
+                    </FormGroup>
+                    <FormGroup>
                         <Input type="text" placeholder="post url" value={post.url} onChange={handleInputChange}></Input>
                     </FormGroup>
                     <FormGroup>
@@ -68,6 +70,9 @@ const PostForm = () => {
                         <Label>Publish Date</Label>
                         <br></br>
                         <input type="date" value={post.publishDateTime}></input>
+                    </FormGroup>
+                    <FormGroup>
+                        <Input type="text" placeholder="userId" value={post.userProfileId} onChange={handleInputChange}></Input>
                     </FormGroup>
                 </FormGroup>
                 <Button onClick={handleSave}>Submit</Button>
