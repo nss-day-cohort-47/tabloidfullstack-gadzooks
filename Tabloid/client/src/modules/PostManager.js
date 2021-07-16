@@ -4,6 +4,10 @@ import "firebase/auth";
 const baseUrl = '/api/Post'
 export const getToken = () => firebase.auth().currentUser.getIdToken();
 
+export const getPostById = (id) => {
+    return fetch(`${baseUrl}/${id}`)
+        .then(res => res.json())
+}
 
 export const getAllPosts = () => {
     return fetch(baseUrl)
