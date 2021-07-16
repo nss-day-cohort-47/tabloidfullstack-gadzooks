@@ -1,5 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 import { Card, CardBody } from "reactstrap";
 
 export const PostCard = ({ post, deleteAndSetPosts }) => {
@@ -12,6 +13,7 @@ export const PostCard = ({ post, deleteAndSetPosts }) => {
                 <div>{post.category.name}</div>
                 <br></br>
                 <button onClick={() => deleteAndSetPosts(post.id)}>Delete</button>
+                <Link to={`/post/${post.id}`}><button>Details</button></Link>
             </CardBody>
         </Card>
     )
