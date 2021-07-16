@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
-import { Button, From, FromGroup, Label, Input, FormText, FormGroup } from "reactstrap";
+import { Button, Form, FromGroup, Label, Input, FormText, FormGroup } from "reactstrap";
 import Post from "./mc-Post";
 import { addPost, getAllPosts, getAllPostsWithUserInfo } from "../modules/PostManager";
 
-const PostFrom = () => {
+const PostForm = () => {
     const [post, setPost] = useState([]);
     const [posts, setPosts] = useState([]);
     const history = useHistory();
+
 
     const getPosts = () => {
         getAllPosts().then(posts => setPosts(posts));
@@ -18,7 +19,7 @@ const PostFrom = () => {
     }
 
     useEffect(() => {
-        getPostsWithUserInfo();
+        getPosts();
     }, []);
 
     const handleInputChange = (evt) => {
@@ -38,26 +39,41 @@ const PostFrom = () => {
         });
     };
 
+
     return (
         <>
             <Form>
                 <FormGroup>
                     <Label>Post</Label>
-                    <Input type="text" placeholder="post title" value={post.title} onChange={handleInputChange}></Input>
-                    <Input type="text" placeholder="post title" value={post.content} onChange={handleInputChange}></Input>
-                    <Input type="text" placeholder="post title" value={post.url} onChange={handleInputChange}></Input>
+                    <FormGroup>
+                        <Input type="text" placeholder="post title" value={post.title} onChange={handleInputChange}></Input>
+                    </FormGroup>
+                    <FormGroup>
+                        <Input type="text" placeholder="post content" value={post.content} onChange={handleInputChange}></Input>
+                    </FormGroup>
+                    <FormGroup>
+                        <Input type="text" placeholder="post url" value={post.url} onChange={handleInputChange}></Input>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="exampleSelect">Category Id</Label>
+                        <Input type="select" name="select" id="exampleSelect" value={post.categoryId}>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </Input>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label>Publish Date</Label>
+                        <br></br>
+                        <input type="date" value={post.publishDateTime}></input>
+                    </FormGroup>
                 </FormGroup>
                 <Button onClick={handleSave}>Submit</Button>
             </Form>
-            <div>
-                <div>
-                    {posts.map((post) => (
-                        <Post post={post} key={post.id} />
-                    ))}
-                </div>
-            </div>
         </>
     );
 };
 
-export default PostFrom;
+export default PostForm;

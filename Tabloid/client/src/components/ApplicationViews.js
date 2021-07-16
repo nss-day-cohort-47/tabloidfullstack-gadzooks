@@ -7,6 +7,7 @@ import TagList from "./TagList";
 import CategoryList from "./CategoryList";
 import TagForm from "./TagForm";
 import PostList from "./mc-PostList";
+import PostForm from "./mc-PostForm";
 import { CurrentUserPostList } from "./CurrentUserPostList";
 
 export default function ApplicationViews({ isLoggedIn }) {
@@ -30,8 +31,12 @@ export default function ApplicationViews({ isLoggedIn }) {
                     <TagForm />
                 </Route>
 
-                <Route path="/post" exact>
+                <Route exact path="/post" exact>
                     <PostList />
+                </Route>
+
+                <Route path="/post/create" exact>
+                    <PostForm />
                 </Route>
 
                 <Route path="/login">

@@ -19,7 +19,7 @@ const PostList = () => {
 
     return (
         <>
-            <Link> Create Post </Link>
+            <Link to="/post/create" > Create Post </Link>
             <div>
                 <div>
                     {posts.map((post) => (
