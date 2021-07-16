@@ -8,44 +8,49 @@ import CategoryList from "./CategoryList";
 import TagForm from "./TagForm";
 import PostList from "./mc-PostList";
 import { CurrentUserPostList } from "./CurrentUserPostList";
+import { PostDetails } from "./PostDetails";
 
 export default function ApplicationViews({ isLoggedIn }) {
 
-    return (
-        <main>
-            <Switch>
-                <Route path="/" exact>
-                    {isLoggedIn ? <Hello /> : <Redirect to="/login" />}
-                </Route>
+  return (
+    <main>
+      <Switch>
+        <Route path="/" exact>
+          {isLoggedIn ? <Hello /> : <Redirect to="/login" />}
+        </Route>
 
-                <Route path="/tag" exact>
-                    <TagList />
-                </Route>
+        <Route path="/tag" exact>
+          <TagList />
+        </Route>
 
-                <Route path="/category" exact>
-                    <CategoryList />
-                </Route>
+        <Route path="/category" exact>
+          <CategoryList />
+        </Route>
 
-                <Route path="/tag/create" exact>
-                    <TagForm />
-                </Route>
+        <Route path="/tag/create" exact>
+          <TagForm />
+        </Route>
 
-                <Route path="/post" exact>
-                    <PostList />
-                </Route>
+        <Route path="/post" exact>
+          <PostList />
+        </Route>
 
-                <Route path="/login">
-                    <Login />
-                </Route>
+        <Route exact path="/post/:postId(\d+)">
+          <PostDetails />
+        </Route>
 
-                <Route path="/register">
-                    <Register />
-                </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
 
-                <Route path="/post/myposts" exact>
-                    <CurrentUserPostList />
-                </Route>
-            </Switch>
-        </main>
-    );
+        <Route path="/register">
+          <Register />
+        </Route>
+
+        <Route path="/post/myposts" exact>
+          <CurrentUserPostList />
+        </Route>
+      </Switch>
+    </main>
+  );
 };
