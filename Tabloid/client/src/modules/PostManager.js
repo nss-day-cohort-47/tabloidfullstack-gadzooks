@@ -11,25 +11,36 @@ export const getAllPosts = () => {
 };
 
 export const getAllPostsWithUserInfo = () => {
-    return fetch(`${baseUrl}/GetWithUserInfo`)
-        .then((res) => res.json())
+    return getToken().then((token) =>
+        fetch(`${baseUrl}/GetWithUserInfo`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((res) => res.json()));
 };
 
 
 export const addPost = (post) => {
-    return fetch(baseUrl, {
-        method: "POST",
-        Headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(post)
-    });
-}
+    return getToken().then((token) =>
+        fetch(baseUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(post)
+        }).then(resp => resp.json()));
+};
 
 export const deletePost = (id) => {
-    return fetch(`${baseUrl}/${id}`, {
-        method: "DELETE",
-    });
+    return getToken().then((token) =>
+        fetch(`${baseUrl}/${id}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(resp => resp.json()));
 };
 
 export const getCurrentUserPosts = () => {

@@ -45,34 +45,29 @@ const PostForm = () => {
                 <FormGroup>
                     <Label>Post</Label>
                     <FormGroup>
-                        <Input type="text" placeholder="post title" value={post.title} onChange={handleInputChange}></Input>
+                        <Input id="title" type="text" placeholder="post title" value={post.title} onChange={handleInputChange}></Input>
                     </FormGroup>
                     <FormGroup>
-                        <Input type="text" placeholder="post content" value={post.content} onChange={handleInputChange}></Input>
+                        <Input id="content" type="text" placeholder="post content" value={post.content} onChange={handleInputChange}></Input>
                     </FormGroup>
                     <FormGroup>
-                        <Input type="text" placeholder="image Url (optional)" value={post.imageLocation} onChange={handleInputChange}></Input>
+                        <Input id="imageLocation" type="text" placeholder="image Url (optional)" value={post.imageLocation} onChange={handleInputChange}></Input>
                     </FormGroup>
+
                     <FormGroup>
-                        <Input type="text" placeholder="post url" value={post.url} onChange={handleInputChange}></Input>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="exampleSelect">Category Id</Label>
-                        <Input type="select" name="select" id="exampleSelect" value={post.categoryId}>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </Input>
+                        <Label for="categoryId">Category Id</Label >
+                        <select type="select" name="select" id="categoryId" value={post.categoryId} onChange={handleInputChange}>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
                     </FormGroup>
                     <FormGroup>
                         <Label>Publish Date</Label>
                         <br></br>
-                        <input type="date" value={post.publishDateTime}></input>
-                    </FormGroup>
-                    <FormGroup>
-                        <Input type="text" placeholder="userId" value={post.userProfileId} onChange={handleInputChange}></Input>
+                        <input id="dateTime" type="date" value={post.publishDateTime}></input>
                     </FormGroup>
                 </FormGroup>
                 <Button onClick={handleSave}>Submit</Button>

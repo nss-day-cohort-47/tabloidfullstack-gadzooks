@@ -12,6 +12,7 @@ using Tabloid.Repositories;
 
 namespace Tabloid.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PostController : ControllerBase
@@ -54,6 +55,9 @@ namespace Tabloid.Controllers
         [HttpPost]
         public IActionResult Post(Post post)
         {
+            post.CreateDateTime = DateTime.Now;
+            post.IsApproved = true;
+            post.UserProfileId = GetCurrentUserProfile().Id;
             _postRepository.Add(post);
             return CreatedAtAction("Get", new { id = post.Id }, post);
         }

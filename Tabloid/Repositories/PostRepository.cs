@@ -327,7 +327,7 @@ namespace Tabloid.Repositories
                     cmd.Parameters.AddWithValue("@Title", post.Title);
                     cmd.Parameters.AddWithValue("@Content", post.Content);
                     cmd.Parameters.AddWithValue("@ImageLocation", post.ImageLocation);
-                    cmd.Parameters.AddWithValue("@CreateDateTime", System.DateTime.Now);
+                    cmd.Parameters.AddWithValue("@CreateDateTime", post.CreateDateTime);
                     cmd.Parameters.AddWithValue("@PublishDateTime", post.PublishDateTime);
                     cmd.Parameters.AddWithValue("@IsApproved", post.IsApproved);
                     cmd.Parameters.AddWithValue("@CategoryId", post.CategoryId);
