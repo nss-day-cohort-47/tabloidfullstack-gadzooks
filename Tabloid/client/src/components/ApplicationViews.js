@@ -6,9 +6,9 @@ import Hello from "./Hello";
 import TagList from "./TagList";
 import TagForm from "./TagForm";
 import PostList from "./mc-PostList";
+import CommentList from "./Comments/CommentList";
 
 export default function ApplicationViews({ isLoggedIn }) {
-
   return (
     <main>
       <Switch>
@@ -32,10 +32,14 @@ export default function ApplicationViews({ isLoggedIn }) {
           <Login />
         </Route>
 
+        <Route path="/comment/:postId">
+          <CommentList />
+        </Route>
+
         <Route path="/register">
           <Register />
         </Route>
       </Switch>
     </main>
   );
-};
+}

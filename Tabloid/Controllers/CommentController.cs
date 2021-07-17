@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Tabloid.Models;
 using Tabloid.Repositories;
 
 namespace Tabloid.Controllers
@@ -25,8 +26,10 @@ namespace Tabloid.Controllers
 
         // POST api/CommentController
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult AddComment(Comment comment)
         {
+            _commentRepository.AddComment(comment);
+            return Ok(comment);
         }
 
         // PUT api/CommentController/5
