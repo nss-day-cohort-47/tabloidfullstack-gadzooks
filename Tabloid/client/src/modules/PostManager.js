@@ -44,7 +44,7 @@ export const deletePost = (id) => {
             headers: {
                 Authorization: `Bearer ${token}`
             }
-        }).then(resp => resp.json()));
+        }));
 };
 
 export const getCurrentUserPosts = () => {

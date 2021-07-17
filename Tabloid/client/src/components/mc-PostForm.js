@@ -67,7 +67,7 @@ const PostForm = () => {
                     <FormGroup>
                         <Label>Publish Date</Label>
                         <br></br>
-                        <input id="dateTime" type="date" value={post.publishDateTime}></input>
+                        <input id="publishDateTime" type="date" value={post.publishDateTime} onChange={handleInputChange}></input>
                     </FormGroup>
                 </FormGroup>
                 <Button onClick={handleSave}>Submit</Button>
