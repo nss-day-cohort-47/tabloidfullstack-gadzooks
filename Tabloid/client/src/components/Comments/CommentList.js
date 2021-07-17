@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import { Button } from "reactstrap";
 import { getCommentsByPost } from "../../modules/commentManager";
 import Comment from "./Comment";
 
@@ -20,6 +21,12 @@ const CommentList = () => {
             <Comment comment={comment} key={comment.Id} />
           ))}
         </div>
+
+        <Button className="addComment">
+          <Link className="a" to={`/comment/${postId}`}>
+            Add Comment
+          </Link>
+        </Button>
       </div>
     </>
   );
