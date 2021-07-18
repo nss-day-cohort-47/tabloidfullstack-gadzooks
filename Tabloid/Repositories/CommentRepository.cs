@@ -96,31 +96,31 @@ namespace Tabloid.Repositories
             }
         }
 
-        //public void AddComment(Comment comment)
-        //{
-        //    using (var conn = Connection)
-        //    {
-        //        conn.Open();
-        //        using (var cmd = conn.CreateCommand())
-        //        {
-        //            cmd.CommandText = @"
-        //                INSERT INTO Comment (PostId, UserProfileId, Subject, Content, CreateDateTime)
-        //                OUTPUT INSERTED.ID
-        //                VALUES (@postId, @userProfileId, @subject, @content, @createDateTime)
-        //            ";
+        public void AddComment(Comment comment)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        INSERT INTO Comment (PostId, UserProfileId, [Subject], Content, CreateDateTime)
+                        OUTPUT INSERTED.ID
+                        VALUES (@postId, @userProfileId, @subject, @content, @createDateTime)
+                    ";
 
-        //            cmd.Parameters.AddWithValue("@postId", comment.PostId);
-        //            cmd.Parameters.AddWithValue("@userProfileId", comment.UserProfileId);
-        //            cmd.Parameters.AddWithValue("@subject", comment.Subject);
-        //            cmd.Parameters.AddWithValue("@content", comment.Content);
-        //            cmd.Parameters.AddWithValue("@createDateTime", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@postId", comment.PostId);
+                    cmd.Parameters.AddWithValue("@userProfileId", comment.UserProfileId);
+                    cmd.Parameters.AddWithValue("@subject", comment.Subject);
+                    cmd.Parameters.AddWithValue("@content", comment.Content);
+                    cmd.Parameters.AddWithValue("@createDateTime", DateTime.Now);
 
-        //            int id = (int)cmd.ExecuteScalar();
+                    int id = (int)cmd.ExecuteScalar();
 
-        //            comment.Id = id;
-        //        }
-        //    }
-        //}
+                    comment.Id = id;
+                }
+            }
+        }
 
         public void UpdateComment(Comment comment)
         {
@@ -169,9 +169,5 @@ namespace Tabloid.Repositories
             }
         }
 
-        public void AddComment(Comment comment)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

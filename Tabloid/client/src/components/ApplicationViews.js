@@ -33,10 +33,10 @@ export default function ApplicationViews({ isLoggedIn }) {
           <Login />
         </Route>
 
-        <Route path="/comment/:postId">
+        <Route path="/comment/PostId/:id">
           <CommentList />
         </Route>
-        <Route path="/comment/:postId(\d+)">
+        <Route path="/comment/add/:id">
           <CommentAddForm />
         </Route>
 

@@ -7,7 +7,7 @@ import Comment from "./Comment";
 const CommentList = () => {
   const [comments, setComments] = useState([]);
   const { postId } = useParams();
-  console.log(postId);
+
   useEffect(() => {
     getCommentsByPost(postId).then(setComments);
   }, [postId]);
@@ -18,12 +18,12 @@ const CommentList = () => {
       <div className="container">
         <div className="row justify-content-center">
           {comments.map((comment) => (
-            <Comment comment={comment} key={comment.Id} />
+            <Comment comment={comment} key={comment.id} />
           ))}
         </div>
 
         <Button className="addComment">
-          <Link className="a" to={`/comment/${postId}`}>
+          <Link className="a  addComment" to={`/comment/add/${postId}`}>
             Add Comment
           </Link>
         </Button>

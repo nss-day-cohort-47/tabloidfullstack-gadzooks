@@ -25,7 +25,7 @@ const CommentAddForm = () => {
   const handleSave = (evt) => {
     evt.preventDefault();
 
-    addComment(comment).then((p) => {
+    addComment(comment).then(() => {
       // Navigate the user back to the home route
       history.push("/");
     });

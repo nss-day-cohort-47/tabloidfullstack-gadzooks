@@ -10,7 +10,15 @@ export const getCommentsByPost = (postId) => {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    }).then((res) => res.json());
+    }).then((resp) => {
+      if (resp.ok) {
+        return resp.json();
+      } else {
+        throw new Error(
+          "An unknown error occurred while trying to get comments."
+        );
+      }
+    });
   });
 };
 
@@ -23,6 +31,14 @@ export const addComment = (comment) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(comment),
+    }).then((resp) => {
+      if (resp.ok) {
+        return resp.json();
+      } else {
+        throw new Error(
+          "An unknown error occurred while trying to save a new comment."
+        );
+      }
     });
   });
 };
