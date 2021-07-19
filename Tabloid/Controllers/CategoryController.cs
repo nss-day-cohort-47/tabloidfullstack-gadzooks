@@ -44,8 +44,16 @@ namespace Tabloid.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            _categoryRepository.Delete(id);
-            return NoContent();
+            try 
+            {
+                _categoryRepository.Delete(id);
+                return NoContent();
+            } catch
+            {
+                Console.WriteLine("Category being used by a post");
+                return NoContent();
+            }
+            
         }
     }
 }
