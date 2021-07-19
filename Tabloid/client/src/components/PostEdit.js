@@ -53,10 +53,10 @@ const PostEdit = () => {
                     <Label>Post</Label>
                     <FormGroup>
                         <input type="hidden" name="id" id="id" value={post.id}></input>
-                        <Input id="title" type="text" placeholder={post.title} value={post.title} onChange={handleInputChange}></Input>
+                        <Input id="title" type="text" value={post.title} onChange={handleInputChange}></Input>
                     </FormGroup>
                     <FormGroup>
-                        <Input id="content" type="text" placeholder="post content" value={post.content} onChange={handleInputChange}></Input>
+                        <Input id="content" type="text" value={post.content} onChange={handleInputChange}></Input>
                     </FormGroup>
                     <FormGroup>
                         <Input id="imageLocation" type="text" placeholder="image Url (optional)" value={post.imageLocation} onChange={handleInputChange}></Input>

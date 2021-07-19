@@ -5,8 +5,13 @@ const baseUrl = '/api/Post'
 export const getToken = () => firebase.auth().currentUser.getIdToken();
 
 export const getPostById = (id) => {
-    return fetch(`${baseUrl}/${id}`)
-        .then(res => res.json())
+    return getToken().then((token) =>
+        fetch(`${baseUrl}/${id}`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(res => res.json()));
 }
 
 export const getAllPosts = () => {
@@ -52,8 +57,10 @@ export const updatePost = (id) => {
         fetch(`${baseUrl}/${id}`, {
             method: "PUT",
             headers: {
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`
-            }
+            },
+            body: JSON.stringify(id)
         }));
 }
 

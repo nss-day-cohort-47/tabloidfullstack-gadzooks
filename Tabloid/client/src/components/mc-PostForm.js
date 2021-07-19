@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { Button, Form, FromGroup, Label, Input, FormText, FormGroup } from "reactstrap";
 import { addPost, getAllPosts, getAllPostsWithUserInfo } from "../modules/PostManager";
+import Category from "./Category";
 
 const PostForm = () => {
     const [post, setPost] = useState([]);
@@ -57,6 +58,7 @@ const PostForm = () => {
                     <FormGroup>
                         <Label for="categoryId">Category Id</Label >
                         <select type="select" name="select" id="categoryId" value={post.categoryId} onChange={handleInputChange}>
+                            {/* console.log({Category.map}) */}
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
