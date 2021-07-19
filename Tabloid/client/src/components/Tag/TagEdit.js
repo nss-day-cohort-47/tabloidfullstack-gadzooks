@@ -4,7 +4,7 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { getTagById, updateTag } from '../../modules/tagManager';
 
 const TagEdit = () => {
-    const [tags, setTags] = useState([]);
+    const [tag, setTag] = useState([]);
     const history = useHistory();
     const { id } = useParams();
 
