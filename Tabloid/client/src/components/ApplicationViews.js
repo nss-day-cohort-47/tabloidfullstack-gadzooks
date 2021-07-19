@@ -5,9 +5,9 @@ import Register from "./Register";
 import Hello from "./Hello";
 import TagList from "./Tag/TagList";
 import TagEdit from "./Tag/TagEdit";
+import TagForm from "./Tag/TagForm";
 import CategoryList from "./CategoryList";
 import CategoryForm from "./CategoryForm";
-import TagForm from "./TagForm";
 import PostList from "./mc-PostList";
 import CommentList from "./Comments/CommentList";
 import CommentAddForm from "./Comments/CommentForm";
@@ -24,7 +24,7 @@ export default function ApplicationViews({ isLoggedIn }) {
 
         <Route path="/post" exact>
           <PostList />
-        </Route>        
+        </Route>
 
         <Route exact path="/post/:postId(\d+)">
           <PostDetails />
