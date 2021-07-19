@@ -1,37 +1,37 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-import Tag from './Tag';
-import { addTag, getAllTags } from '../modules/tagManager';
+import Category from './Category';
+import { addCategory, getAllCategories } from '../modules/categoryManager';
 
-const TagForm = () => {
-    const [tag, setTag] = useState({ name: '' });
-    const [tags, setTags] = useState([]);
+const CategoryForm = () => {
+    const [category, setCategory] = useState({ name: '' });
+    const [categories, setCategories] = useState([]);
     const history = useHistory();
 
-    const getTags = () => {
-        getAllTags().then(tags => setTags(tags));
+    const getCategories = () => {
+        getAllCategories().then(categories => setCategories(categories));
     }
 
     useEffect(() => {
-        getTags();
+        getCategories();
     }, []);
 
     const handleInputChange = (evt) => {
         const value = evt.target.value;
         const key = evt.target.id;
 
-        const tagCopy = { ...tag };
+        const categoryCopy = { ...category };
 
-        tagCopy[key] = value;
-        setTag(tagCopy);
+        categoryCopy[key] = value;
+        setCategory(categoryCopy);
     };
 
     const handleSave = (evt) => {
         evt.preventDefault();
-        addTag(tag).then(() => {
+        addCategory(category).then(() => {
             // Navigate the user back to the home route
-            history.push("/tag");
+            history.push("/category");
         });
     };
 
@@ -39,17 +39,17 @@ const TagForm = () => {
         <>
             <Form>
                 <FormGroup>
-                    <Label for="name">Tag</Label>
-                    <Input type="text" name="name" id="name" placeholder="Tag Name..."
-                        value={tag.name}
+                    <Label for="name">Category</Label>
+                    <Input type="text" name="name" id="name" placeholder="Category Name..."
+                        value={category.name}
                         onChange={handleInputChange} />
                 </FormGroup>
                 <Button className="btn btn-primary" onClick={handleSave}>Submit</Button>
             </Form>
             <div className="container">
                 <div className="row justify-content-center">
-                    {tags.map((tag) => (
-                        <Tag tag={tag} key={tag.id} />
+                    {categories.map((category) => (
+                        <Category category={category} key={category.id} />
                     ))}
                 </div>
             </div>
@@ -57,4 +57,4 @@ const TagForm = () => {
     );
 };
 
-export default TagForm;
+export default CategoryForm;
