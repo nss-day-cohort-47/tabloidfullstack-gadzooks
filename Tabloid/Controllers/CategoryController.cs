@@ -39,5 +39,13 @@ namespace Tabloid.Controllers
         public void Put(int id, [FromBody] string value)
         {
         }
+
+        // DELETE api/<TagController>/5
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _categoryRepository.Delete(id);
+            return NoContent();
+        }
     }
 }
