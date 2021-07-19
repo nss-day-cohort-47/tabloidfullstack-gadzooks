@@ -4,7 +4,7 @@ import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { getPostById, updatePost } from "../modules/PostManager";
 
 const PostEdit = () => {
-    const [posts, setPosts] = useState([]);
+    const [post, setPost] = useState([]);
     const history = useHistory();
     const { id } = useParams();
 
@@ -83,3 +83,5 @@ const PostEdit = () => {
         </>
     );
 }
+
+export default PostEdit;

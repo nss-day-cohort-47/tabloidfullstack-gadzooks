@@ -10,6 +10,7 @@ import PostList from "./mc-PostList";
 import PostForm from "./mc-PostForm";
 import { CurrentUserPostList } from "./CurrentUserPostList";
 import { PostDetails } from "./PostDetails";
+import PostEdit from "./PostEdit";
 
 export default function ApplicationViews({ isLoggedIn }) {
 
@@ -39,8 +40,13 @@ export default function ApplicationViews({ isLoggedIn }) {
                 <Route path="/post/create" exact>
                     <PostForm />
                 </Route>
+
                 <Route exact path="/post/:postId(\d+)">
                     <PostDetails />
+                </Route>
+
+                <Route exact path="/post/edit/:postId(\d+)">
+                    <PostEdit />
                 </Route>
 
                 <Route path="/login">
