@@ -26,5 +26,34 @@ namespace Tabloid.Controllers
         {
             return Ok(_categoryRepository.GetAll());
         }
+
+        [HttpPost]
+        public IActionResult Post(Category category)
+        {
+            _categoryRepository.AddCategory(category);
+            return CreatedAtAction("Get", new { id = category.Id }, category);
+        }
+
+        // PUT api/<TagController>/5
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] string value)
+        {
+        }
+
+        // DELETE api/<TagController>/5
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            try 
+            {
+                _categoryRepository.Delete(id);
+                return NoContent();
+            } catch
+            {
+                Console.WriteLine("Category being used by a post");
+                return NoContent();
+            }
+            
+        }
     }
 }
