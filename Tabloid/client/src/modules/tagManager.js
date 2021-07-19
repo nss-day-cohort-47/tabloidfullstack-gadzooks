@@ -5,6 +5,11 @@ export const getAllTags = () => {
         .then((res) => res.json())
 };
 
+export const getTagById = (tagId) => {
+    return fetch(`${baseUrl}/${tagId}`)
+        .then(res => res.json())
+};
+
 export const addTag = (tag) => {
     return fetch(baseUrl, {
         method: "POST",
@@ -14,6 +19,16 @@ export const addTag = (tag) => {
         body: JSON.stringify(tag),
     });
 };
+
+export const updateTag = (editedTag) => {
+    return fetch(`${baseUrl}/${editedTag.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(editedTag)
+    });
+}
 
 export const deleteTag = (id) => {
     return fetch(`${baseUrl}/${id}`, {

@@ -1,5 +1,5 @@
 {
-  "name": "tabloid-client",
+  "name": "client",
   "proxy": "https://localhost:5001",
   "version": "0.1.0",
   "private": true,

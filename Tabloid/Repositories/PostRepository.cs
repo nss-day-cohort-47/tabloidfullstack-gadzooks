@@ -378,12 +378,12 @@ namespace Tabloid.Repositories
                                 CategoryId = @categoryId
                                 WHERE Id = @id";
 
-                    cmd.Parameters.AddWithValue("@title", post.Title);
-                    cmd.Parameters.AddWithValue("@content", post.Content);
-                    cmd.Parameters.AddWithValue("@imageLocation",post.ImageLocation);
-                    cmd.Parameters.AddWithValue("@publishDateTime",post.PublishDateTime);
-                    cmd.Parameters.AddWithValue("@categoryId", post.CategoryId);
-                    cmd.Parameters.AddWithValue("@id", post.Id);
+                    DbUtils.AddParameter(cmd, "@title", post.Title);
+                    DbUtils.AddParameter(cmd, "@content", post.Content);
+                    DbUtils.AddParameter(cmd, "@imageLocation",post.ImageLocation);
+                    DbUtils.AddParameter(cmd, "@publishDateTime",post.PublishDateTime);
+                    DbUtils.AddParameter(cmd, "@categoryId", post.CategoryId);
+                    DbUtils.AddParameter(cmd, "@id", post.Id);
 
                     cmd.ExecuteNonQuery();
                 }
