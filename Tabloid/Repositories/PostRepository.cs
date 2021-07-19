@@ -308,6 +308,7 @@ namespace Tabloid.Repositories
                 }
             }
         }
+        
         public void Add(Post post)
         {
             using (var conn = Connection)
@@ -323,14 +324,14 @@ namespace Tabloid.Repositories
                         VALUES (
                             @Title, @Content, @ImageLocation, @CreateDateTime, @PublishDateTime,
                             @IsApproved, @CategoryId, @UserProfileId )";
-                    cmd.Parameters.AddWithValue("@Title", post.Title);
-                    cmd.Parameters.AddWithValue("@Content", post.Content);
-                    cmd.Parameters.AddWithValue("@ImageLocation", post.ImageLocation);
-                    cmd.Parameters.AddWithValue("@CreateDateTime", post.CreateDateTime);
-                    cmd.Parameters.AddWithValue("@PublishDateTime", post.PublishDateTime);
-                    cmd.Parameters.AddWithValue("@IsApproved", post.IsApproved);
-                    cmd.Parameters.AddWithValue("@CategoryId", post.CategoryId);
-                    cmd.Parameters.AddWithValue("@UserProfileId", post.UserProfileId);
+                    DbUtils.AddParameter(cmd, "@Title", post.Title);
+                    DbUtils.AddParameter(cmd, "@Content", post.Content);
+                    DbUtils.AddParameter(cmd,"@ImageLocation", post.ImageLocation);
+                    DbUtils.AddParameter(cmd, "@CreateDateTime", post.CreateDateTime);
+                    DbUtils.AddParameter(cmd, "@PublishDateTime", post.PublishDateTime);
+                    DbUtils.AddParameter(cmd, "@IsApproved", post.IsApproved);
+                    DbUtils.AddParameter(cmd, "@CategoryId", post.CategoryId);
+                    DbUtils.AddParameter(cmd, "@UserProfileId", post.UserProfileId);
 
                     post.Id = (int)cmd.ExecuteScalar();
                 }
@@ -345,7 +346,10 @@ namespace Tabloid.Repositories
 
                 using (var cmd = conn.CreateCommand())
                 {
+
                     cmd.CommandText = @"
+                            DELETE FROM Comment
+                            WHERE PostId = @id
                             DELETE FROM Post
                             WHERE Id = @id
                         ";
@@ -374,12 +378,12 @@ namespace Tabloid.Repositories
                                 CategoryId = @categoryId
                                 WHERE Id = @id";
 
-                    cmd.Parameters.AddWithValue("@title", post.Title);
-                    cmd.Parameters.AddWithValue("@content", post.Content);
-                    cmd.Parameters.AddWithValue("@imageLocation",post.ImageLocation);
-                    cmd.Parameters.AddWithValue("@publishDateTime",post.PublishDateTime);
-                    cmd.Parameters.AddWithValue("@categoryId", post.CategoryId);
-                    cmd.Parameters.AddWithValue("@id", post.Id);
+                    DbUtils.AddParameter(cmd, "@title", post.Title);
+                    DbUtils.AddParameter(cmd, "@content", post.Content);
+                    DbUtils.AddParameter(cmd, "@imageLocation",post.ImageLocation);
+                    DbUtils.AddParameter(cmd, "@publishDateTime",post.PublishDateTime);
+                    DbUtils.AddParameter(cmd, "@categoryId", post.CategoryId);
+                    DbUtils.AddParameter(cmd, "@id", post.Id);
 
                     cmd.ExecuteNonQuery();
                 }

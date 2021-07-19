@@ -9,12 +9,15 @@ import TagForm from "./Tag/TagForm";
 import CategoryList from "./CategoryList";
 import CategoryForm from "./CategoryForm";
 import PostList from "./mc-PostList";
+import PostForm from "./mc-PostForm";
 import CommentList from "./Comments/CommentList";
 import CommentAddForm from "./Comments/CommentForm";
 import { CurrentUserPostList } from "./CurrentUserPostList";
 import { PostDetails } from "./PostDetails";
+import PostEdit from "./PostEdit";
 
 export default function ApplicationViews({ isLoggedIn }) {
+
   return (
     <main>
       <Switch>
@@ -26,8 +29,16 @@ export default function ApplicationViews({ isLoggedIn }) {
           <PostList />
         </Route>
 
+        <Route path="/post/create" exact>
+          <PostForm />
+        </Route>
+
         <Route exact path="/post/:postId(\d+)">
           <PostDetails />
+        </Route>
+
+        <Route exact path="/post/edit/:id">
+          <PostEdit />
         </Route>
 
         <Route path="/post/myposts" exact>

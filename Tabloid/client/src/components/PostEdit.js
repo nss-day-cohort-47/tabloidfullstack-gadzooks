@@ -1,44 +1,50 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router";
-import { Button, Form, FromGroup, Label, Input, FormText, FormGroup } from "reactstrap";
-import { addPost, getAllPosts, getAllPostsWithUserInfo } from "../modules/PostManager";
-import Category from "./Category";
+import { useHistory, useParams } from "react-router-dom";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { getPostById, updatePost } from "../modules/PostManager";
 
-const PostForm = () => {
+const PostEdit = () => {
     const [post, setPost] = useState([]);
-    const [posts, setPosts] = useState([]);
     const history = useHistory();
+    const { id } = useParams();
 
-
-    const getPosts = () => {
-        getAllPosts().then(posts => setPosts(posts));
-    }
-
-    const getPostsWithUserInfo = () => {
-        getAllPostsWithUserInfo().then(posts => setPosts(posts));
+    const getPostToEdit = (id) => {
+        getPostById(id).then(post => setPost(post));
     }
 
     useEffect(() => {
-        getPosts();
+        getPostToEdit(id);
     }, []);
 
     const handleInputChange = (evt) => {
         const value = evt.target.value;
         const key = evt.target.id;
+        console.log("value", value);
+        console.log("param", id);
 
         const postCopy = { ...post };
-
         postCopy[key] = value;
         setPost(postCopy);
+
     };
 
     const handleSave = (evt) => {
         evt.preventDefault();
-        addPost(post).then(() => {
-            history.push("/Post");
-        });
-    };
 
+        const editedPost = {
+            id: post.id,
+            title: post.title,
+            content: post.content,
+            imageLocation: post.imageLocation,
+            categoryId: post.categoryId,
+            publishDateTime: post.publishDateTime
+        }
+
+        updatePost(editedPost)
+            .then(() => {
+                history.push("/post");
+            });
+    };
 
     return (
         <>
@@ -46,10 +52,11 @@ const PostForm = () => {
                 <FormGroup>
                     <Label>Post</Label>
                     <FormGroup>
-                        <Input id="title" type="text" placeholder="post title" value={post.title} onChange={handleInputChange}></Input>
+                        <input type="hidden" name="id" id="id" value={post.id}></input>
+                        <Input id="title" type="text" value={post.title} onChange={handleInputChange}></Input>
                     </FormGroup>
                     <FormGroup>
-                        <Input id="content" type="text" placeholder="post content" value={post.content} onChange={handleInputChange}></Input>
+                        <Input id="content" type="text" value={post.content} onChange={handleInputChange}></Input>
                     </FormGroup>
                     <FormGroup>
                         <Input id="imageLocation" type="text" placeholder="image Url (optional)" value={post.imageLocation} onChange={handleInputChange}></Input>
@@ -58,7 +65,6 @@ const PostForm = () => {
                     <FormGroup>
                         <Label for="categoryId">Category Id</Label >
                         <select type="select" name="select" id="categoryId" value={post.categoryId} onChange={handleInputChange}>
-                            {/* console.log({Category.map}) */}
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -76,6 +82,6 @@ const PostForm = () => {
             </Form>
         </>
     );
-};
+}
 
-export default PostForm;
+export default PostEdit;
