@@ -14,6 +14,7 @@ export const PostCard = ({ post, deleteAndSetPosts }) => {
                 <br></br>
                 <button onClick={() => deleteAndSetPosts(post.id)}>Delete</button>
                 <Link to={`/post/${post.id}`}><button>Details</button></Link>
+                {/* <Link to={`/post/edit/${post.id}`}><button>Edit</button></Link> */}
             </CardBody>
         </Card>
     )

@@ -8,70 +8,15 @@ import TagEdit from "./Tag/TagEdit";
 import CategoryList from "./CategoryList";
 import TagForm from "./Tag/TagForm";
 import PostList from "./mc-PostList";
-<<<<<<< HEAD
 import PostForm from "./mc-PostForm";
-=======
 import CommentList from "./Comments/CommentList";
 import CommentAddForm from "./Comments/CommentForm";
->>>>>>> main
 import { CurrentUserPostList } from "./CurrentUserPostList";
 import { PostDetails } from "./PostDetails";
 import PostEdit from "./PostEdit";
 
 export default function ApplicationViews({ isLoggedIn }) {
-<<<<<<< HEAD
 
-    return (
-        <main>
-            <Switch>
-                <Route path="/" exact>
-                    {isLoggedIn ? <Hello /> : <Redirect to="/login" />}
-                </Route>
-
-                <Route path="/tag" exact>
-                    <TagList />
-                </Route>
-
-                <Route path="/category" exact>
-                    <CategoryList />
-                </Route>
-
-                <Route path="/tag/create" exact>
-                    <TagForm />
-                </Route>
-
-                <Route exact path="/post" exact>
-                    <PostList />
-                </Route>
-
-                <Route path="/post/create" exact>
-                    <PostForm />
-                </Route>
-
-                <Route exact path="/post/:postId(\d+)">
-                    <PostDetails />
-                </Route>
-
-                <Route exact path="/post/edit/:postId(\d+)">
-                    <PostEdit />
-                </Route>
-
-                <Route path="/login">
-                    <Login />
-                </Route>
-
-                <Route path="/register">
-                    <Register />
-                </Route>
-
-                <Route path="/post/myposts" exact>
-                    <CurrentUserPostList />
-                </Route>
-            </Switch>
-        </main>
-    );
-
-=======
   return (
     <main>
       <Switch>
@@ -83,8 +28,16 @@ export default function ApplicationViews({ isLoggedIn }) {
           <PostList />
         </Route>
 
+        <Route path="/post/create" exact>
+          <PostForm />
+        </Route>
+
         <Route exact path="/post/:postId(\d+)">
           <PostDetails />
+        </Route>
+
+        <Route exact path="/post/edit/:id">
+          <PostEdit />
         </Route>
 
         <Route path="/post/myposts" exact>
@@ -126,5 +79,4 @@ export default function ApplicationViews({ isLoggedIn }) {
       </Switch>
     </main>
   );
->>>>>>> main
 };
