@@ -113,10 +113,9 @@ namespace Tabloid.Repositories
             }
         }
 
-        /*
                 public void UpdateCategory(Category category)
                 {
-                    using (SqlConnection conn = Connection)
+                    using (var conn = Connection)
                     {
                         conn.Open();
                         using (SqlCommand cmd = conn.CreateCommand())
@@ -126,32 +125,12 @@ namespace Tabloid.Repositories
                                     SET 
                                         Name = @name
                                     WHERE Id = @id";
-                            cmd.Parameters.AddWithValue("@name", category.Name);
-                            cmd.Parameters.AddWithValue("@id", category.Id);
+                    DbUtils.AddParameter(cmd, "@name", category.Name);
+                    DbUtils.AddParameter(cmd, "@id", category.Id);
                             cmd.ExecuteNonQuery();
                         }
                     }
                 }
-
-                public void DeleteCategory(int id)
-                {
-                    using (SqlConnection conn = Connection)
-                    {
-                        conn.Open();
-
-                        using (SqlCommand cmd = conn.CreateCommand())
-                        {
-                            cmd.CommandText = @"
-                                    DELETE FROM Category
-                                    WHERE Id = @id
-                                ";
-
-                            cmd.Parameters.AddWithValue("@id", id);
-
-                            cmd.ExecuteNonQuery();
-                        }
-                    }
-                }
-        */
+       
     }
 }
