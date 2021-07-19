@@ -7,11 +7,12 @@ import TagList from "./TagList";
 import CategoryList from "./CategoryList";
 import TagForm from "./TagForm";
 import PostList from "./mc-PostList";
+import CommentList from "./Comments/CommentList";
+import CommentAddForm from "./Comments/CommentForm";
 import { CurrentUserPostList } from "./CurrentUserPostList";
 import { PostDetails } from "./PostDetails";
 
 export default function ApplicationViews({ isLoggedIn }) {
-
   return (
     <main>
       <Switch>
@@ -43,6 +44,14 @@ export default function ApplicationViews({ isLoggedIn }) {
           <Login />
         </Route>
 
+        <Route path="/comment/PostId/:id" exact>
+          {isLoggedIn ? <CommentList /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route path="/comment/add/:id" exact>
+          {isLoggedIn ? <CommentAddForm /> : <Redirect to="/login" />}
+        </Route>
+
         <Route path="/register">
           <Register />
         </Route>
@@ -53,4 +62,4 @@ export default function ApplicationViews({ isLoggedIn }) {
       </Switch>
     </main>
   );
-};
+}
