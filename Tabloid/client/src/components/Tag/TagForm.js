@@ -6,16 +6,16 @@ import { addTag, getAllTags } from '../../modules/tagManager';
 
 const TagForm = () => {
     const [tag, setTag] = useState({ name: '' });
-    const [tags, setTags] = useState([]);
+    // const [tags, setTags] = useState([]);
     const history = useHistory();
 
-    const getTags = () => {
-        getAllTags().then(tags => setTags(tags));
-    }
+    // const getTags = () => {
+    //     getAllTags().then(tags => setTags(tags));
+    // }
 
-    useEffect(() => {
-        getTags();
-    }, []);
+    // useEffect(() => {
+    //     getTags();
+    // }, []);
 
     const handleInputChange = (evt) => {
         const value = evt.target.value;
@@ -46,13 +46,13 @@ const TagForm = () => {
                 </FormGroup>
                 <Button className="btn btn-primary" onClick={handleSave}>Submit</Button>
             </Form>
-            <div className="container">
+            {/* <div className="container">
                 <div className="row justify-content-center">
                     {tags.map((tag) => (
                         <Tag tag={tag} key={tag.id} />
                     ))}
                 </div>
-            </div>
+            </div> */}
         </>
     );
 };
