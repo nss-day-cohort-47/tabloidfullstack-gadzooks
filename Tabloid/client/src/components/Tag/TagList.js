@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Tag from './Tag';
 import { Link } from "react-router-dom";
-import { deleteTag, getAllTags } from "../modules/tagManager";
+import { deleteTag, getAllTags } from "../../modules/tagManager";
+import Tag from "./Tag.js";
 
 const TagList = () => {
     const [tags, setTags] = useState([]);
