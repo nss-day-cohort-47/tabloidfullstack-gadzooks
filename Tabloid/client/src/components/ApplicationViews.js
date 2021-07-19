@@ -6,12 +6,8 @@ import Hello from "./Hello";
 import TagList from "./Tag/TagList";
 import TagEdit from "./Tag/TagEdit";
 import CategoryList from "./CategoryList";
-<<<<<<< HEAD
 import CategoryForm from "./CategoryForm";
 import TagForm from "./TagForm";
-=======
-import TagForm from "./Tag/TagForm";
->>>>>>> main
 import PostList from "./mc-PostList";
 import CommentList from "./Comments/CommentList";
 import CommentAddForm from "./Comments/CommentForm";
@@ -28,11 +24,14 @@ export default function ApplicationViews({ isLoggedIn }) {
 
         <Route path="/post" exact>
           <PostList />
+        </Route>        
+
+        <Route exact path="/post/:postId(\d+)">
+          <PostDetails />
         </Route>
 
-<<<<<<< HEAD
-        <Route path="/tag/create" exact>
-          <TagForm />
+        <Route path="/post/myposts" exact>
+          <CurrentUserPostList />
         </Route>
 
         <Route path="/category" exact>
@@ -41,18 +40,6 @@ export default function ApplicationViews({ isLoggedIn }) {
 
         <Route path="/category/create" exact>
           <CategoryForm />
-=======
-        <Route exact path="/post/:postId(\d+)">
-          <PostDetails />
-        </Route>
-
-        <Route path="/post/myposts" exact>
-          <CurrentUserPostList />
->>>>>>> main
-        </Route>
-
-        <Route path="/category" exact>
-          <CategoryList />
         </Route>
 
         <Route path="/tag" exact>
