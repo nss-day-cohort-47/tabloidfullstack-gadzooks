@@ -1,4 +1,8 @@
+import firebase from "firebase/app";
+import "firebase/auth";
+
 const baseUrl = '/api/tag';
+export const getToken = () => firebase.auth().currentUser.getIdToken();
 
 export const getAllTags = () => {
     return fetch(baseUrl)
