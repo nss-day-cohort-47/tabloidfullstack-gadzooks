@@ -44,11 +44,12 @@ export default function ApplicationViews({ isLoggedIn }) {
           <Login />
         </Route>
 
-        <Route path="/comment/PostId/:id">
-          <CommentList />
+        <Route path="/comment/PostId/:id" exact>
+          {isLoggedIn ? <CommentList /> : <Redirect to="/login" />}
         </Route>
-        <Route path="/comment/add/:id">
-          <CommentAddForm />
+
+        <Route path="/comment/add/:id" exact>
+          {isLoggedIn ? <CommentAddForm /> : <Redirect to="/login" />}
         </Route>
 
         <Route path="/register">

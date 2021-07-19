@@ -1,64 +1,69 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
-import { addComment } from "../../modules/commentManager";
+import { addComment, getCommentsByPost } from "../../modules/commentManager";
 
 const CommentAddForm = () => {
-  const emptyComment = {
+  const { id } = useParams();
+  const history = useHistory();
+  const [newComment, setNewComment] = useState({
+    postId: id,
     subject: "",
     content: "",
+  });
+
+  const handleInputChange = (event) => {
+    let value = event.target.value;
+    let selectedValue = event.target.id;
+    let newCommentCopy = { ...newComment };
+    newCommentCopy[selectedValue] = value;
+    newCommentCopy.postId = id;
+    setNewComment(newCommentCopy);
   };
 
-  const history = useHistory();
-  const [comment, setComment] = useState({ emptyComment });
-
-  const handleInputChange = (evt) => {
-    const value = evt.target.value;
-    const key = evt.target.id;
-
-    const NewComment = { ...comment };
-
-    NewComment[key] = value;
-    setComment(NewComment);
-  };
-
-  const handleSave = (evt) => {
-    evt.preventDefault();
-
-    addComment(comment).then(() => {
-      // Navigate the user back to the home route
-      history.push("/");
-    });
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    addComment(newComment)
+      .then(() => getCommentsByPost(id))
+      .then(() => history.push(`/comment/PostId/${id}`));
   };
 
   return (
     <Form>
+      <h2>New Comment</h2>
       <FormGroup>
-        <Label for="subject">Subject:</Label>
+        <Label for="subject">Subject</Label>
         <Input
           type="text"
           name="subject"
           id="subject"
-          placeholder="comment subject"
+          placeholder="Subject"
           required
-          value={comment.subject}
+          value={newComment.subject}
           onChange={handleInputChange}
         />
       </FormGroup>
       <FormGroup>
-        <Label for="content">URL</Label>
+        <Label for="content">Content</Label>
         <Input
-          type="textarea"
+          type="text"
           name="content"
           id="content"
-          placeholder="comment content"
+          placeholder="Enter Message Here"
           required
-          value={comment.content}
+          value={newComment.content}
           onChange={handleInputChange}
         />
       </FormGroup>
-      <Button className="btn btn-primary" onClick={handleSave}>
+
+      <Button className="btn btn-success" onClick={handleSubmit}>
         Submit
+      </Button>
+      <Button
+        className="btn btn-danger"
+        onClick={() => history.push(`/comment/PostId/:id`)}
+      >
+        Cancel
       </Button>
     </Form>
   );

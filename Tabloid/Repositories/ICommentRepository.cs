@@ -1,21 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Tabloid.Models;
 
 namespace Tabloid.Repositories
 {
     public interface ICommentRepository
     {
-        List<Comment> GetCommentsByPost(int postId);
-
-        Comment GetCommentById(int id);
-
-        void AddComment(Comment comment);
-
-        void UpdateComment(Comment comment);
-
-        void DeleteComment(int id);
+        void Add(Comment comment);
+        void Delete(int id);
+        List<Comment> GetCommentsByPost(int id);
+        void Update(Comment comment);
     }
 }

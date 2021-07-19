@@ -1,11 +1,11 @@
 import { getToken } from "./authManager";
 
-// eslint-disable-next-line no-unused-vars
 const baseUrl = "/api/comment";
 
-export const getCommentsByPost = (postId) => {
+//  get comments with a post id
+export const getCommentsByPost = (id) => {
   return getToken().then((token) => {
-    return fetch(`${baseUrl}/${postId}`, {
+    return fetch(`${baseUrl}/PostId?id=${id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -22,6 +22,7 @@ export const getCommentsByPost = (postId) => {
   });
 };
 
+//  adding a comment to a post
 export const addComment = (comment) => {
   return getToken().then((token) => {
     return fetch(baseUrl, {
@@ -39,6 +40,18 @@ export const addComment = (comment) => {
           "An unknown error occurred while trying to save a new comment."
         );
       }
+    });
+  });
+};
+
+// delete a comment on a post
+export const deleteComment = (id) => {
+  return getToken().then((token) => {
+    return fetch(`${baseUrl}/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
   });
 };

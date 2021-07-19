@@ -1,18 +1,31 @@
 import React from "react";
 import { Button } from "reactstrap";
+import { Card, CardTitle, CardBody } from "reactstrap";
+import { deleteComment } from "../../modules/commentManager";
 
-import { Card, CardBody } from "reactstrap";
+const CommentCard = ({ comment, getComments }) => {
+  const handleDelete = () => {
+    if (window.confirm("Do you want to delete this comment?")) {
+      deleteComment(comment.id).then(() => getComments());
+    }
+  };
 
-const Comment = ({ comment }) => {
   return (
-    <Card>
+    <Card className="CommentCard">
       <CardBody>
-        <h2>Subject: {comment.subject}</h2>
-        <p>Title: {comment.content}</p>
-        <Button color="info">Edit</Button>{" "}
+        <CardTitle>
+          <strong>
+            Subject: {comment.subject}
+            {/* | Author: {comment.createDateTime} */}
+          </strong>
+        </CardTitle>
+        <p>Comment: {comment.content}</p>
+        <Button className="btn btn-danger" onClick={handleDelete}>
+          Delete
+        </Button>
       </CardBody>
     </Card>
   );
 };
 
-export default Comment;
+export default CommentCard;
