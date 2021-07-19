@@ -47,6 +47,16 @@ export const deletePost = (id) => {
         }));
 };
 
+export const updatePost = (id) => {
+    return getToken().then((token) =>
+        fetch(`${baseUrl}/${id}`, {
+            method: "PUT",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }));
+}
+
 export const getCurrentUserPosts = () => {
     return getToken().then((token) =>
         fetch(`${baseUrl}/myposts`, {
