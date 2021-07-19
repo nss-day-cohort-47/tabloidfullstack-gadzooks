@@ -11,7 +11,7 @@ const Tag = ({ tag, deleteAndSetTags, checkIfEdit }) => {
             <CardBody>
                 <p>{tag.name}</p>
                 <button onClick={() => history.push(`/tag/edit/${tag.id}`)}>Edit</button>
-                {/* //! THIS BREAK WON'T STAY */}
+                {/* // THIS BREAK WILL STAY APPARENTLY */}
                 <br></br>
                 {(checkIfEdit)
                     ? null

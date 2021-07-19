@@ -5,37 +5,57 @@ const baseUrl = '/api/tag';
 export const getToken = () => firebase.auth().currentUser.getIdToken();
 
 export const getAllTags = () => {
-    return fetch(baseUrl)
+    return getToken().then((token) =>
+        fetch(baseUrl, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }))
         .then((res) => res.json())
 };
 
 export const getTagById = (tagId) => {
-    return fetch(`${baseUrl}/${tagId}`)
-        .then(res => res.json())
+    return getToken().then((token) =>
+        fetch(`${baseUrl}/${tagId}`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }))
+        .then((res) => res.json())
 };
 
 export const addTag = (tag) => {
-    return fetch(baseUrl, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(tag),
-    });
+    return getToken().then((token) =>
+        fetch(baseUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(tag)
+        }));
 };
 
 export const updateTag = (editedTag) => {
-    return fetch(`${baseUrl}/${editedTag.id}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(editedTag)
-    });
+    return getToken().then((token) =>
+        fetch(`${baseUrl}/${editedTag.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(editedTag)
+        }));
 }
 
 export const deleteTag = (id) => {
-    return fetch(`${baseUrl}/${id}`, {
-        method: "DELETE",
-    });
+    return getToken().then((token) =>
+        fetch(`${baseUrl}/${id}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }));
 };
